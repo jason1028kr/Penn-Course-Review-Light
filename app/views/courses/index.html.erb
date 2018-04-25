@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Courses</h1>
+
+<% if @courses.empty? %>
+  <p>No courses yet...</p>
+<% else %>
+  <ul>
+    <% @courses.each do |course| %>
+      <li><%= link_to course.full_title, "/courses/#{course.id}" %> | <%= pluralize course.students.size, 'student' %> enrolled</li>
+    <% end %>
+  </ul>
+<% end %>
+
+<br>
+
+<%= link_to 'New Course', new_course_path %>

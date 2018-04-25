@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @course.number %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @course.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @course.description %>
+</p>
+
+<h2>Professors:</h2>
+<% if @course.professors.empty? %>
+  <p>No professors assigned yet...</p>
+<% else %>
+  <ul>
+    <% @course.professors.each do |professor| %>
+      <li><%= link_to professor.full_name, "/professors/#{professor.id}" %> | <%= link_to 'Unassign', "/courses/#{@course.id}/professors/#{professor.id}", method: :delete %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h3>Assign a professor:</h3>
+<%= form_with url: "/courses/#{@course.id}/professors" do |form| %>
+  <%= form.collection_select :professor_id, @professors, :id, :full_name, prompt: true %>
+  <%= form.submit 'Assign Professor' %>
+<% end %>
+
+<h2>Students:</h2>
+<% if @course.students.empty? %>
+  <p>No students enrolled yet...</p>
+<% else %>
+  <ul>
+    <% @course.students.each do |student| %>
+      <li><%= link_to student.full_name, "/students/#{student.id}" %> | <%= link_to 'Unenroll', "/courses/#{@course.id}/students/#{student.id}", method: :delete %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h3>Add a student:</h3>
+<%= form_with url: "/courses/#{@course.id}/students" do |form| %>
+  <%= form.collection_select :student_id, @students, :id, :full_name, prompt: true %>
+  <%= form.submit 'Add Student' %>
+<% end %>
+
+<h2>Reviews:</h2>
+<% if @course.course_reviews.empty? %>
+  <p>No reviews yet...</p>
+<% else %>
+  <ul>
+    <% @course.course_reviews.each do |review| %>
+      <li><%= review.content %> | <%= link_to 'Edit', "/courses/#{@course.id}/course_reviews/#{review.id}/edit" %> | <%= link_to 'Destroy', "/courses/#{@course.id}/course_reviews/#{review.id}", method: :delete %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h3>Add a review:</h3>
+<%= form_with url: "/courses/#{@course.id}/course_reviews" do |form| %>
+  <%= form.text_area 'course_review[content]' %><br>
+  <%= form.submit 'Add Review' %>
+<% end %>
+
+<%= link_to 'Edit', edit_course_path(@course) %> |
+<%= link_to 'Destroy', "/courses/#{@course.id}", method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= link_to 'Back', courses_path %>
