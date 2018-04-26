@@ -1,14 +1,50 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @professor.first_name %>
-</p>
+<h1><%= @professor.full_name %></h1>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @professor.last_name %>
-</p>
+<br>
+
+<h3>Courses Taught:</h3>
+    <% if @professor.courses.empty? %>
+      <p>Not teaching any courses yet...</p>
+    <% else %>
+      <ul>
+        <% @professor.courses.each do |course| %>
+          <li><%= link_to course.full_title, "/courses/#{course.id}" %> | <%= link_to 'Quit', "/professors/#{@professor.id}/courses/#{course.id}", method: :delete %></li>
+        <% end %>
+      </ul>
+<% end %>
+
+<br>
+
+<strong>Assign a course:</strong>
+    <%= form_with url: "/professors/#{@professor.id}/courses" do |form| %>
+    <%= form.collection_select :course_id, @courses, :id, :full_title, prompt: true %>
+    <%= form.submit 'Add Course' %>
+<% end %>
+
+<br>
+
+<h2>Reviews:</h2>
+<% if @professor.professor_reviews.empty? %>
+  <p>No reviews yet...</p>
+<% else %>
+  <ul>
+    <% @professor.professor_reviews.each do |review| %>
+      <li><%= review.content %> | <%= link_to 'Edit', "/professors/#{@professor.id}/professor_reviews/#{review.id}/edit" %> | <%= link_to 'Destroy', "/professors/#{@professor.id}/professor_reviews/#{review.id}", method: :delete %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h3>Add a review:</h3>
+<%= form_with url: "/professors/#{@professor.id}/professor_reviews" do |form| %>
+  <%= form.text_area 'professor_review[content]' %><br>
+  <%= form.submit 'Add Review' %>
+<% end %>
+
+
+<br>
 
 <%= link_to 'Edit', edit_professor_path(@professor) %> |
+<%= link_to 'Destroy', "/professors/#{@professor.id}", method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', professors_path %>

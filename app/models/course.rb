@@ -11,6 +11,6 @@ class Course < ApplicationRecord
 
 
   def full_title
-    "#{number} - #{title}"
+    "#{title} #{number}"
   end
 end

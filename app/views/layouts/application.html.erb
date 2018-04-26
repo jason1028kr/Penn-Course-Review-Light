@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PennCourseReviewLight</title>
+    <title>PennCourseReviewLite</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,11 +9,8 @@
   </head>
 
   <body>
-    <%= link_to 'Penn Course Review Lite', '/' %> |
-    <%= link_to 'Courses', '/courses' %> |
-    <%= link_to 'Students', '/students' %> |
-    <%= link_to 'Professors', '/professors' %>
-
+    <%= render 'layouts/nav' %>
+    <div class="container">
     <%= yield %>
   </body>
 </html>

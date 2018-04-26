@@ -2,15 +2,24 @@
 
 <h1>Courses</h1>
 
-<% if @courses.empty? %>
-  <p>No courses yet...</p>
-<% else %>
-  <ul>
-    <% @courses.each do |course| %>
-      <li><%= link_to course.full_title, "/courses/#{course.id}" %> | <%= pluralize course.students.size, 'student' %> enrolled</li>
-    <% end %>
-  </ul>
-<% end %>
+<table class="table table-light">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Full Title</th>
+            <th scope="col">Class Size</th>
+            <th scope="col">Review</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @courses.each do |course| %>
+        <tr>
+        <td><%= link_to course.full_title, "/courses/#{course.id}" %></td>
+        <td><%= pluralize course.students.size, 'student' %> enrolled</td>
+        <td><%= pluralize course.course_reviews.size, 'review' %></td>
+    </tr>
+        <% end %>
+    </tbody>
+</table>
 
 <br>
 
