@@ -9,7 +9,6 @@ class Course < ApplicationRecord
   has_many :students, through: :courses_students
   has_many :professors, through: :courses_professors
 
-
   def full_title
     "#{title} #{number}"
   end

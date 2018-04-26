@@ -2,7 +2,6 @@ class ProfessorReviewsController < ApplicationController
   before_action :set_professor
   before_action :set_professor_review, except: [:create]
 
-
   # POST /professor_reviews
   # POST /professor_reviews.json
   def create
@@ -33,16 +32,15 @@ class ProfessorReviewsController < ApplicationController
 
   private
 
-    def set_professor
-      @professor = Professor.find(params[:professor_id])
-    end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_professor_review
-      @professor_review = ProfessorReview.find(params[:id])
-    end
+  def set_professor
+    @professor = Professor.find(params[:professor_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def professor_review_params
-      params.require(:professor_review).permit(:content)
-    end
+  def set_professor_review
+    @professor_review = ProfessorReview.find(params[:id])
+  end
+
+  def professor_review_params
+    params.require(:professor_review).permit(:content)
+  end
 end

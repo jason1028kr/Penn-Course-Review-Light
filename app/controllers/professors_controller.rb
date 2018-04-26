@@ -77,13 +77,14 @@ class ProfessorsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_professor
-      @professor = Professor.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def professor_params
-      params.require(:professor).permit(:first_name, :last_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_professor
+    @professor = Professor.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def professor_params
+    params.require(:professor).permit(:first_name, :last_name)
+  end
 end
